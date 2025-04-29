@@ -1,0 +1,28 @@
+<style>
+    .dot {
+        height: 16px; width: 16px;
+        border-radius: 8px;
+        background: blue;
+        position: absolute;
+    }
+</style>
+<html></html>
+<script>
+    let dots = [];
+    for (let i=0; i<20; i++) {
+        let dot = document.createElement('div');
+        dot.className = 'dot';
+        document.body.appendChild(dot);
+        dots.push(dot);     
+    }
+
+    let handler = function(event) {
+        let dot = dots.pop();
+        dot.style.left = event.clientX + 'px';
+        dot.style.top = event.clientY + 'px';
+        dots.unshift(dot);
+    }
+    document.body.addEventListener('mousemove', handler);
+
+    
+</script>

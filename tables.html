@@ -1,0 +1,116 @@
+<html>
+<body>
+<span id="table"></span>
+</body>
+</html>
+
+<script>
+const mountains = [
+{
+  "name": "Mount Everest",
+  "height_meters": 8848.86,
+  "country": "Nepal"
+},
+{
+  "name": "K2 (Mount Godwin-Austen)",
+  "height_meters": 8611,
+  "country": "Pakistan"
+},
+{
+  "name": "Kangchenjunga",
+  "height_meters": 8586,
+  "country": "India"
+},
+{
+  "name": "Lhotse",
+  "height_meters": 8516,
+  "country": "China"
+},
+{
+  "name": "Makalu",
+  "height_meters": 8485,
+  "country": "Bhutan"
+},
+{
+  "name": "Cho Oyu",
+  "height_meters": 8188,
+  "country": "Tibet"
+},
+{
+  "name": "Dhaulagiri I",
+  "height_meters": 8167,
+  "country": "Myanmar"
+},
+{
+  "name": "Manaslu",
+  "height_meters": 8163,
+  "country": "India"
+},
+{
+  "name": "Nanga Parbat",
+  "height_meters": 8126,
+  "country": "Pakistan"
+},
+{
+  "name": "Annapurna I",
+  "height_meters": 8091,
+  "country": "Nepal"
+}
+];
+
+const fillTable = function() {
+    let span = document.getElementById('table');
+    let table = document.createElement('table');
+    table.id = 'mountains'
+    span.appendChild(table);
+    let headRow = document.createElement('tr');
+    table.appendChild(headRow)
+    for (let title of ['name', 'height', 'place']) {
+        let cell = document.createElement('th');
+        headRow.appendChild(cell);
+        let textElement = document.createTextNode(title);
+        cell.appendChild(textElement);
+        cell.style.textAlign = 'right';
+    }
+    for (let mountain of mountains) {
+        let row = document.createElement('tr');
+        table.appendChild(row);
+
+        let name = document.createElement('td');
+        name.textContent = mountain['name'];
+        name.style.textAlign = 'right';
+        row.appendChild(name);
+
+        let height = document.createElement('td');
+        height.textContent = mountain['height_meters'];
+        height.style.textAlign = 'right';
+        row.appendChild(height);
+
+        let country = document.createElement('td');
+        country.textContent = mountain['country'];
+        country.style.textAlign = 'right';
+        row.appendChild(country);
+    }
+}
+
+fillTable()
+
+const getElementsByTagName = function(node, tag) {
+    let results = [];
+    tag = tag.toLowerCase();
+    <!-- console.log(node.nodeName); -->
+    if (node.nodeName.toLowerCase() == tag) {
+        results.push(node);
+    }
+    for (let child of node.childNodes) {
+        results = results.concat(getElementsByTagName(child, tag));
+    }
+
+    return results;
+}
+
+let span = document.getElementsByTagName('span')[0];
+let elts = getElementsByTagName(span, 'td');
+console.log(elts.length);
+
+</script>

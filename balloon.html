@@ -1,0 +1,26 @@
+<span id="balloon" style="font-size: 30px">&#x1F388;</span>
+
+<script>
+let explosion_emoji = '\u{1F4A5}';
+let balloon = document.getElementById('balloon');
+let handler = function(event) {
+    console.log(balloon.style.fontSize);
+    let size = balloon.style.fontSize.match(/(\d+)/)[0];
+    console.log(size);
+    if (event.key == 'ArrowUp') {
+        size = Math.floor(size * 1.2);
+
+        balloon.style.fontSize = size + 'px';
+    } else if (event.key == 'ArrowDown') {
+        size = Math.floor(size * 0.9);
+        if (size >= 20) {
+            balloon.style.fontSize = size + 'px';
+        } else {
+            balloon.textContent = explosion_emoji;
+            document.body.removeEventListener('keydown', handler);
+        }
+    }
+}
+document.body.addEventListener('keydown', handler);
+
+</script>

@@ -1,0 +1,58 @@
+<html>
+<style>
+    button.active {
+        background-color: #4CAF50; /* Green */
+        color: white;
+    }
+    button.inactive {
+        background-color: #f1f1f1; /* Grey */
+        color: black;
+    }
+</style>
+<body>
+    <div id="top">
+        <div data-tabname="Tab 1">
+            <p>Something random on Tab 1</p>
+        </div>
+        <div data-tabname="Tab 2">
+            <p>Something random on Tab 2</p>
+        </div>
+        <div data-tabname="Tab 3">
+            <p>Something random on Tab 3</p>
+        </div>
+        <div data-tabname="Tab 4">
+            <p>Something random on Tab 4</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const asTabs = function(node) {
+        children_list = Array.from(node.children);
+        button_list = []
+        console.log(children_list);
+        for (let child of children_list) {
+            child.style.display = 'none';
+            let button = document.createElement('button');
+            button_list.push(button);
+            button.className = 'inactive';
+            button.textContent = child.getAttribute('data-tabname');
+            button.onclick = function() {
+                for (let sibling of children_list) {
+                    sibling.style.display = 'none';
+                }
+                child.style.display = 'block';
+                for (let sibling of button_list) {
+                    sibling.className = 'inactive';
+                }
+                button.className = 'active';
+            }
+            node.insertBefore(button, children_list[0]);
+        }
+        button_list[0].click();
+    }
+    console.log(document.getElementById('top'));
+    asTabs(document.getElementById('top'));
+    
+</script>
