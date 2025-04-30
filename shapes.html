@@ -1,0 +1,71 @@
+<canvas width="1000" height="1000" id="real"></canvas>
+
+<script>    
+    canvas = document.querySelector("canvas");
+    ctx = canvas.getContext("2d");
+    function drawTrapezoid(ctx, x, y, width, height) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + width / 2, y - height);
+        ctx.lineTo(x + width * 1.5, y - height);
+        ctx.lineTo(x + width * 2, y);
+        ctx.closePath();
+        ctx.fillStyle = "blue";
+        ctx.stroke();
+    }
+
+    function drawDiamond(ctx, x, y, side) {
+        const diff = side / Math.sqrt(2);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + diff, y + diff);
+        ctx.lineTo(x + 2*diff, y );
+        ctx.lineTo(x + diff, y - diff);
+        ctx.closePath();
+        ctx.fillStyle = "red";
+        ctx.fill();
+    }
+
+    function drawZigzag(ctx, x, y, width, n) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        for (let i = 0; i < n; i++) {
+            ctx.lineTo(x + (i % 2 == 0 ? width : 0), y + (i+1)*width/10);
+        }
+        ctx.fillStyle = "green";
+        ctx.stroke();
+    }
+
+    function drawSpiral(ctx, x, y, radius, n) {
+        ctx.beginPath();
+        ctx.moveTo(x+radius, y);
+        for (let i = 1; i < n; i++) {
+            ctx.lineTo(x + radius * Math.cos(i/5), y + radius * Math.sin(i/5));
+            radius += 0.5;
+        }
+        ctx.fillStyle = "purple";
+        ctx.stroke();
+    }
+
+    function drawStar(ctx, x, y, spikes, outerRadius, innerRadius) {
+        ctx.beginPath();
+        ctx.moveTo(x + outerRadius, y);
+        for (let i = 1; i <= spikes; i++) {
+            let reachX = x + outerRadius * Math.cos((i * 2 * Math.PI) / spikes);
+            let reachY = y - outerRadius * Math.sin((i * 2 * Math.PI) / spikes);
+            let controlAngle = ((i - 0.5) * 2 * Math.PI) / spikes;
+            let controlX = x + innerRadius * Math.cos(controlAngle);
+            let controlY = y - innerRadius * Math.sin(controlAngle);
+            ctx.quadraticCurveTo(controlX, controlY, reachX, reachY);
+
+        }
+        ctx.closePath();
+        ctx.fillStyle = "cyan";
+        ctx.fill();
+    }
+    drawTrapezoid(ctx, 100, 200, 200, 200);
+    drawDiamond(ctx, 500, 200, 200, 100);
+    drawZigzag(ctx, 100, 400, 200, 20);
+    drawSpiral(ctx, 500, 400, 10, 100);
+    drawStar(ctx, 800, 600, 8, 200, 50);
+</script>

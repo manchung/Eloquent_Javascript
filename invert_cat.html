@@ -1,0 +1,31 @@
+
+<canvas id="mirrorCanvas" style="display:none"></canvas>
+<canvas id='real' width="1000", height="1000"></canvas>
+
+<script>
+    let imageData;
+    img = document.createElement('img');
+    img.src = 'cat.png';
+    img.addEventListener('load', () => {
+        let canvas = document.getElementById("mirrorCanvas");
+        let ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // Flip horizontally by scaling context
+        ctx.translate(0, img.height);
+        ctx.scale(1, -1);
+
+        // Draw mirrored image
+        ctx.drawImage(img, 0, 0);
+        imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        console.log(imageData);
+        drawReal();
+    });
+
+    function drawReal() {
+        canvas = document.getElementById("real");
+        ctx = canvas.getContext('2d');
+        ctx.putImageData(imageData, 0, 0);
+    };
+</script>
