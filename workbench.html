@@ -1,0 +1,23 @@
+<textarea cols="100", rows="20"></textarea>
+
+<p><button id="run">Run</button></p>
+
+<p>Result: <span id="result"></span></p>
+
+<script>
+    const textarea = document.querySelector("textarea");
+    const runButton = document.getElementById("run");
+    const resultSpan = document.getElementById("result");
+
+    runButton.addEventListener("click", () => {
+        const code = textarea.value;
+        try {
+            let result = Function('', code)();
+            resultSpan.style.color = "green";
+            resultSpan.textContent = `${result}`;
+        } catch (error) {
+            resultSpan.style.color = "red";
+            resultSpan.textContent = "Error: " + error.message;
+        }
+    });
+</script>
